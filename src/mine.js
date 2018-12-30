@@ -7,17 +7,30 @@
  */
 
 import React, {Component} from 'react';
-import {TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, StyleSheet, Image, Text, View} from 'react-native';
+import {
+    TouchableOpacity,
+    Button,
+    ActivityIndicator,
+    SectionList,
+    Platform,
+    StyleSheet,
+    Image,
+    Text,
+    View,
+    Alert
+} from 'react-native';
 import SameApi from "./api";
-import {SenseCate} from "./utils";
-import {createStackNavigator} from "react-navigation";
+import {
+    ChannelListItemMusic,
+    ChannelListItemText,
+    ChannelListItemTextImage,
+    ImageButton,
+    SenseCate,
+    TextButton
+} from "./utils";
 import NavigationService from "./NavigationService";
 
 export default class MineScreen extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render(): React.ReactNode {
         const style = {
             flex: 1,
@@ -36,10 +49,6 @@ export default class MineScreen extends Component {
 }
 
 class SameListItem extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render(): React.ReactNode {
         const style = {
             flex: 1,
@@ -57,67 +66,30 @@ class SameListItem extends Component {
     }
 }
 
-class SameListItemTextImage extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render(): React.ReactNode {
-        return (
-            <View>
-                <TouchableOpacity onPress={()=>{NavigationService.navigate('ImgDetail', {urls:[{url:this.props.data.photo}]})}}>
-                <Image source={{uri:this.props.data.photo}} style={{height:300,resizeMode:'cover'}}/>
-                </TouchableOpacity>
-                <Text>{this.props.data.txt}</Text>
-            </View>
-        );
-    }
-}
-
-class SameListItemText extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render(): React.ReactNode {
-        return (
-            <View>
-                <Text>{this.props.data.txt}</Text>
-            </View>
-        );
-    }
-}
-
-class SameListItemMusic extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render(): React.ReactNode {
-        return (
-            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between',}}>
-                <Image source={{uri:this.props.data.music.cover}} style={{width:100, height:100,}}/>
-                <View style={{flex:1, flexDirection:'column', justifyContent:'space-around'}}>
-                    <Text>演唱者</Text>
-                    <Text>{this.props.data.music.author}</Text>
-                    <Text>歌曲名</Text>
-                    <Text>{this.props.data.music.title}</Text>
-                </View>
-            </View>
-        );
-    }
-}
-
 class SameListItemHeader extends Component {
     constructor(props) {
         super(props);
+        this.styles = {
+            container: {
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 50,
+                height: 50,
+                // backgroundColor: 'red',
+            },
+            img:{
+                width: 50,
+                height: 50,
+            }
+        }
     }
-
     render(): React.ReactNode {
         return (
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between',}}>
-                <Image source={{uri:this.props.data.channel.icon}} style={{width:50, height:50,}}/>
+                {/*<Image source={{uri:this.props.data.channel.icon}} style={{width:50, height:50,}}/>*/}
+                <ImageButton imgUrl={this.props.data.channel.icon} jumpUrl='UserChannelSenses'/>
                 <View style={{flex:1, flexDirection:'column', justifyContent:'space-between'}}>
+                    {/*<TextButton text={this.props.data.channel.name} jumpUrl={'ChannelDetail'}></TextButton>*/}
                     <Text>{this.props.data.channel.name}</Text>
                     <Text>{this.props.data.channel.times}</Text>
                 </View>
@@ -132,15 +104,15 @@ class SameListItemBody extends Component {
         if (cate == SenseCate.Image) {
             if (this.props.data.photo == '') {
                 return (
-                    <SameListItemText data={this.props.data}/>
+                    <ChannelListItemText data={this.props.data}/>
                 );
             }
             return (
-                <SameListItemTextImage data={this.props.data}/>
+                <ChannelListItemTextImage data={this.props.data}/>
             );
         } else if (cate == SenseCate.Music) {
             return (
-                <SameListItemMusic data={this.props.data.media}/>
+                <ChannelListItemMusic data={this.props.data.media}/>
             )
         } else {
             return (
@@ -152,18 +124,12 @@ class SameListItemBody extends Component {
 
 class SameListItemFooter extends Component {
     render(): React.ReactNode {
-        let styles={
-            icon: {
-                width:20,
-                height:20,
-            },
-        }
         return (
             <View style={{flex: 1, flexDirection: 'row',}}>
                 <Image source={{uri:''}} style={styles.icon}/>
-                <TextButton data={this.props.data.likes.toString()}/>
+                <TextButton text={this.props.data.likes.toString()}/>
                 <Image source={{uri:''}} style={styles.icon}/>
-                <TextButton data={this.props.data.views.toString()}/>
+                <TextButton text={this.props.data.views.toString()}/>
                 <Image source={{uri:''}} style={styles.icon}/>
                 <Image source={{uri:''}} style={styles.icon}/>
             </View>
@@ -207,52 +173,6 @@ class SameSectionList extends Component {
     }
 }
 
-class ImageButton extends Component{
-    constructor(props) {
-        super(props);
-        this.styles = {
-            container: {
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 100,
-                height: 100,
-                backgroundColor: 'red',
-            },
-            img:{
-                width: 50,
-                height: 50,
-            }
-        }
-    }
-    onButtonPress = ()=>{}
-
-    render(){
-        return(
-            <TouchableOpacity onPress={this.onButtonPress}  activeOpacity={0.2} focusedOpacity={0.5}>
-                <View style={this.styles.container}>
-                    <Image source={{uri:'https://pic1.zhimg.com/16ff989bb_l.jpg'}} styles={{width:50, height:50,}} />
-                </View>
-            </TouchableOpacity>
-        );
-    }
-}
-
-class TextButton extends Component{
-    constructor(props) {
-        super(props);
-    }
-
-    render(){
-        return(
-            <TouchableOpacity activeOpacity={0.2} focusedOpacity={0.5}>
-                <View style= {{justifyContent:'center',alignItems:'center',width:20,height:20,backgroundColor:'white'}}>
-                    <Text style={{color:'grey'}}>{this.props.data}</Text>
-                </View>
-            </TouchableOpacity>
-        );
-    }
-}
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -271,5 +191,9 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 18,
         height: 44,
+    },
+    icon: {
+        width:20,
+        height:20,
     },
 })

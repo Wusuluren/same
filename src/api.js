@@ -53,6 +53,24 @@ class SameApi {
             reject(error)
         });
     }
+    channelSenses(ids,resolve, reject){
+        fetch(`${this.SAME_HOST}/senses?ids=${ids}`, {
+            headers: this.header,
+        }).then((response) => response.json()).then((responseJson) => {
+            resolve(responseJson)
+        }).catch((error) =>{
+            reject(error)
+        });
+    }
+    userChannelSenses(channel, resolve, reject){
+        fetch(`${this.SAME_HOST}/user/${this.uid}/channel/${channel}/senses`, {
+            headers: this.header,
+        }).then((response) => response.json()).then((responseJson) => {
+            resolve(responseJson)
+        }).catch((error) =>{
+            reject(error)
+        });
+    }
 
     //hall
     channelsRecent(resolve, reject){

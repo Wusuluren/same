@@ -12,8 +12,9 @@ import { createStackNavigator, createBottomTabNavigator, createAppContainer } fr
 import MineScreen from "./src/mine"
 import RecommendScreen from "./src/recommend"
 import ChannelScreen from "./src/channel"
-import {ImgDetailScreen} from "./src/utils";
+import {ImgDetailScreen, ImageButton} from "./src/utils";
 import NavigationService from "./src/NavigationService";
+import {ChannelDetailScreen, UserChannelSensesScreen} from "./src/channelDetail";
 
 class MsgScreen extends Component {
     render() {
@@ -45,7 +46,7 @@ class MsgScreen extends Component {
 // class TestScreen extends Component {
 //     render() {
 //         return (
-//             <TestSubScreen navigation={this.props.navigation}/>
+//             <ImageButton imgUrl='https://pic1.zhimg.com/16ff989bb_l.jpg' jumpUrl='ChannelDetail'/>
 //         );
 //     }
 // }
@@ -69,8 +70,8 @@ const StackNavigation = createStackNavigator({
             })
         },
         'ImgDetail': ImgDetailScreen,
-    },
-    {
+        'ChannelDetail': ChannelDetailScreen,
+        'UserChannelSenses': UserChannelSensesScreen,
     })
 
 const AppContainer = createAppContainer(StackNavigation);
