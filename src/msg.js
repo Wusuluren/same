@@ -11,7 +11,7 @@ import {TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, Styl
 import SameApi from "./api";
 import {SenseCate} from "./utils"
 
-export default class ChannelScreen extends Component {
+export default class MsgScreen extends Component {
     constructor(props) {
         super(props);
     }
@@ -26,7 +26,7 @@ export default class ChannelScreen extends Component {
         return (
             <View style={style}>
                 {/*<View style={{marginTop:10, height:600}}>*/}
-                    <ChannelList/>
+                    <MsgList/>
                     {/*</View>*/}
             </View>
         );
@@ -65,7 +65,7 @@ class ChannelListItem extends Component {
     }
 }
 
-class ChannelList extends Component {
+class MsgList extends Component {
     constructor(props){
         super(props);
         this.state ={ isLoading: true}

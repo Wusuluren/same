@@ -9,9 +9,9 @@
 import React, {Component} from 'react';
 import {TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, StyleSheet, Image, Text, View} from 'react-native';
 import SameApi from "./api";
-import {SenseCate} from "./const"
+import {SenseCate} from "./utils"
 
-export default class HallScreen extends Component {
+export default class RecommendScreen extends Component {
     constructor(props) {
         super(props);
     }

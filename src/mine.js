@@ -9,6 +9,9 @@
 import React, {Component} from 'react';
 import {TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, StyleSheet, Image, Text, View} from 'react-native';
 import SameApi from "./api";
+import {SenseCate} from "./utils";
+import {createStackNavigator} from "react-navigation";
+import NavigationService from "./NavigationService";
 
 export default class MineScreen extends Component {
     constructor(props) {
@@ -62,7 +65,9 @@ class SameListItemTextImage extends Component {
     render(): React.ReactNode {
         return (
             <View>
-                <Image source={{uri:this.props.data.photo}} style={{height:300,}}/>
+                <TouchableOpacity onPress={()=>{NavigationService.navigate('ImgDetail', {urls:[{url:this.props.data.photo}]})}}>
+                <Image source={{uri:this.props.data.photo}} style={{height:300,resizeMode:'cover'}}/>
+                </TouchableOpacity>
                 <Text>{this.props.data.txt}</Text>
             </View>
         );
@@ -124,7 +129,7 @@ class SameListItemHeader extends Component {
 class SameListItemBody extends Component {
     render(): React.ReactNode {
         let cate = this.props.data.cate
-        if (cate == 2) {
+        if (cate == SenseCate.Image) {
             if (this.props.data.photo == '') {
                 return (
                     <SameListItemText data={this.props.data}/>
@@ -133,7 +138,7 @@ class SameListItemBody extends Component {
             return (
                 <SameListItemTextImage data={this.props.data}/>
             );
-        } else if (cate == 3) {
+        } else if (cate == SenseCate.Music) {
             return (
                 <SameListItemMusic data={this.props.data.media}/>
             )
