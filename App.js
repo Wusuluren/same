@@ -8,13 +8,15 @@
 
 import React, {Component} from 'react';
 import {TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, StyleSheet, Image, Text, View} from 'react-native';
-import { createStackNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
+import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, createAppContainer } from "react-navigation";
 import MineScreen from "./src/mine"
 import RecommendScreen from "./src/recommend"
 import ChannelScreen from "./src/channel"
-import {ImgDetailScreen, ImageButton} from "./src/utils";
+import {ImgDetailScreen} from "./src/common";
 import NavigationService from "./src/NavigationService";
 import {ChannelDetailScreen, UserChannelSensesScreen} from "./src/channelDetail";
+import LoginScreen from "./src/login";
+import AuthScreen from "./src/auth";
 
 class MsgScreen extends Component {
     render() {
@@ -60,21 +62,24 @@ const TabNavigator = createBottomTabNavigator({
 });
 
 const StackNavigation = createStackNavigator({
-        'App': {
-            screen:TabNavigator,
-            navigationOptions: ()=>({
-                header: null,
-                // headerMode:'none',
-                // headerBackTitle: null,
-                // headerTransparent: true,
-            })
-        },
-        'ImgDetail': ImgDetailScreen,
-        'ChannelDetail': ChannelDetailScreen,
-        'UserChannelSenses': UserChannelSensesScreen,
-    })
+    'App': {
+        screen:TabNavigator,
+        navigationOptions: ()=>({
+            header: null,
+        })
+    },
+    'ImgDetail': ImgDetailScreen,
+    'ChannelDetail': ChannelDetailScreen,
+    'UserChannelSenses': UserChannelSensesScreen,
+})
 
-const AppContainer = createAppContainer(StackNavigation);
+const SwitchNavigation = createSwitchNavigator({
+    'Auth': AuthScreen,
+    'App': StackNavigation,
+    'LoginScreen': LoginScreen,
+})
+
+const AppContainer = createAppContainer(SwitchNavigation);
 
 export default class App extends React.Component {
     render() {

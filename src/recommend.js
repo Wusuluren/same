@@ -7,9 +7,10 @@
  */
 
 import React, {Component} from 'react';
-import {TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, StyleSheet, Image, Text, View} from 'react-native';
+import {TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, Stylesheet, Image, Text, View} from 'react-native';
 import SameApi from "./api";
-import {SenseCate} from "./utils"
+import {ImageButton, SenseCate, Styles} from "./common"
+import NavigationService from "./NavigationService";
 
 export default class RecommendScreen extends Component {
     constructor(props) {
@@ -25,9 +26,7 @@ export default class RecommendScreen extends Component {
 
         return (
             <View style={style}>
-                {/*<View style={{marginTop:10, height:600}}>*/}
-                    <RecommendList/>
-                    {/*</View>*/}
+                <RecommendList/>
             </View>
         );
     }
@@ -66,15 +65,14 @@ class RecommendItemBodyImage extends Component {
     render(): React.ReactNode {
         const style = {
             flex: 1,
-            flexDirectiRRon: 'row',
+            flexDirection: 'row',
             justifyContent: 'space-between',
         }
-        // console.log(this.props.data)
         return (
             <View stype={style}>
-                <Image source={{uri:this.getPhoto(0)}} style={{height:50,width:50}}/>
-                <Image source={{uri:this.getPhoto(1)}} style={{height:50,width:50}}/>
-                <Image source={{uri:this.getPhoto(2)}} style={{height:50,width:50}}/>
+                <ImageButton imgUrl={this.getPhoto(0)} jumpUrl='ChannelDetail'/>
+                <ImageButton imgUrl={this.getPhoto(1)} jumpUrl='ChannelDetail'/>
+                <ImageButton imgUrl={this.getPhoto(2)} jumpUrl='ChannelDetail'/>
             </View>
         );
     }
@@ -86,6 +84,9 @@ class RecommendItemHeader extends Component {
     }
 
     render(): React.ReactNode {
+        if (this.props.data.type != 'channel') {
+            return <View/>
+        }
         return (
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between',}}>
                 <Image source={{uri:this.props.data.channel.icon}} style={{width:50, height:50,}}/>
@@ -109,7 +110,7 @@ class RecommendItemBody extends Component {
         } else if (cate == SenseCate.Music) {
             return (
                 <View/>
-                // {/*<RecommendItemBodyImage data={this.props.data.media}/>*/}
+                // {<RecommendItemBodyImage data={this.props.data.media}/>}
             )
         } else {
             return (
@@ -143,35 +144,14 @@ class RecommendList extends Component {
         }
 
         return (
-            <View style={styles.container}>
+            <View style={Styles.container}>
                 <SectionList
                     sections={[{data:this.state.recommendList}]}
                     renderItem={({item}) => <RecommendListItem data={item}/>}
-                    renderSectionHeader={({section}) => <Text style={styles.sectionHeader}></Text>}
+                    renderSectionHeader={({section}) => <Text style={Styles.sectionHeader}></Text>}
                     keyExtractor={(item, index) => index}
                 />
             </View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 22,
-    },
-    sectionHeader: {
-        paddingTop: 2,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 2,
-        fontSize: 14,
-        fontWeight: 'bold',
-        backgroundColor: 'rgba(247,247,247,1.0)',
-    },
-    item: {
-        padding: 10,
-        fontSize: 18,
-        height: 44,
-    },
-})

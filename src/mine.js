@@ -13,7 +13,7 @@ import {
     ActivityIndicator,
     SectionList,
     Platform,
-    StyleSheet,
+    Stylesheet,
     Image,
     Text,
     View,
@@ -26,8 +26,9 @@ import {
     ChannelListItemTextImage,
     ImageButton,
     SenseCate,
-    TextButton
-} from "./utils";
+    TextButton,
+    Styles,
+} from "./common";
 import NavigationService from "./NavigationService";
 
 export default class MineScreen extends Component {
@@ -40,9 +41,7 @@ export default class MineScreen extends Component {
 
         return (
             <View style={style}>
-                {/*<View style={{marginTop:10, height:600}}>*/}
-                    <SameSectionList/>
-                    {/*</View>*/}
+                <SameSectionList/>
             </View>
         );
     }
@@ -69,13 +68,12 @@ class SameListItem extends Component {
 class SameListItemHeader extends Component {
     constructor(props) {
         super(props);
-        this.styles = {
+        this.Styles = {
             container: {
                 justifyContent: 'center',
                 alignItems: 'center',
                 width: 50,
                 height: 50,
-                // backgroundColor: 'red',
             },
             img:{
                 width: 50,
@@ -126,12 +124,12 @@ class SameListItemFooter extends Component {
     render(): React.ReactNode {
         return (
             <View style={{flex: 1, flexDirection: 'row',}}>
-                <Image source={{uri:''}} style={styles.icon}/>
+                <Image source={{uri:''}} style={Styles.icon}/>
                 <TextButton text={this.props.data.likes.toString()}/>
-                <Image source={{uri:''}} style={styles.icon}/>
+                <Image source={{uri:''}} style={Styles.icon}/>
                 <TextButton text={this.props.data.views.toString()}/>
-                <Image source={{uri:''}} style={styles.icon}/>
-                <Image source={{uri:''}} style={styles.icon}/>
+                <Image source={{uri:''}} style={Styles.icon}/>
+                <Image source={{uri:''}} style={Styles.icon}/>
             </View>
         );
     }
@@ -161,39 +159,14 @@ class SameSectionList extends Component {
         }
 
         return (
-            <View style={styles.container}>
+            <View style={Styles.container}>
                 <SectionList
                     sections={[{data:this.state.dataSource}]}
                     renderItem={({item}) => <SameListItem data={item}/>}
-                    renderSectionHeader={({section}) => <Text style={styles.sectionHeader}></Text>}
+                    renderSectionHeader={({section}) => <Text style={Styles.sectionHeader}></Text>}
                     keyExtractor={(item, index) => index}
                 />
             </View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 22,
-    },
-    sectionHeader: {
-        paddingTop: 2,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 2,
-        fontSize: 14,
-        fontWeight: 'bold',
-        backgroundColor: 'rgba(247,247,247,1.0)',
-    },
-    item: {
-        padding: 10,
-        fontSize: 18,
-        height: 44,
-    },
-    icon: {
-        width:20,
-        height:20,
-    },
-})

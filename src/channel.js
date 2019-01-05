@@ -7,9 +7,9 @@
  */
 
 import React, {Component} from 'react';
-import {TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, StyleSheet, Image, Text, View} from 'react-native';
+import {TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, Stylesheet, Image, Text, View} from 'react-native';
 import SameApi from "./api";
-import {SenseCate} from "./utils"
+import {SenseCate, Styles} from "./common"
 
 export default class ChannelScreen extends Component {
     constructor(props) {
@@ -25,9 +25,7 @@ export default class ChannelScreen extends Component {
 
         return (
             <View style={style}>
-                {/*<View style={{marginTop:10, height:600}}>*/}
-                    <ChannelList/>
-                    {/*</View>*/}
+                <ChannelList/>
             </View>
         );
     }
@@ -73,6 +71,7 @@ class ChannelList extends Component {
 
     componentDidMount(){
         return SameApi.channelsAll((responseJson) => {
+            // console.log(responseJson)
             this.setState({
                 isLoading: false,
                 channelList: responseJson.data.subscribe_channels,
@@ -89,38 +88,14 @@ class ChannelList extends Component {
         }
 
         return (
-            <View style={styles.container}>
+            <View style={Styles.container}>
                 <SectionList
                     sections={[{data:this.state.channelList}]}
                     renderItem={({item}) => <ChannelListItem data={item}/>}
-                    renderSectionHeader={({section}) => <Text style={styles.sectionHeader}></Text>}
+                    renderSectionHeader={({section}) => <Text style={Styles.sectionHeader}></Text>}
                     keyExtractor={(item, index) => index}
                 />
             </View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 22,
-        // flexDirection: 'column',
-        // justifyContent: 'space-between',
-        // alignItems: 'stretch',
-    },
-    sectionHeader: {
-        paddingTop: 2,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 2,
-        fontSize: 14,
-        fontWeight: 'bold',
-        backgroundColor: 'rgba(247,247,247,1.0)',
-    },
-    item: {
-        padding: 10,
-        fontSize: 18,
-        height: 44,
-    },
-})

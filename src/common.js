@@ -29,7 +29,6 @@ class ImageButton extends Component{
                 alignItems: 'center',
                 width: 50,
                 height: 50,
-                // backgroundColor: 'red',
             },
             img:{
                 width: 50,
@@ -41,7 +40,7 @@ class ImageButton extends Component{
         return(
             <TouchableOpacity onPress={()=>{NavigationService.navigate(this.props.jumpUrl)}}>
                 <View style={this.styles.container}>
-                    <Image source={{uri:this.props.imgUrl}} style={{width:50, height:50,}} />
+                    <Image source={{uri:this.props.imgUrl}} style={this.styles.img} />
                 </View>
             </TouchableOpacity>
         );
@@ -142,20 +141,14 @@ class ChannelListItemBody extends Component {
 
 class ChannelListItemFooter extends Component {
     render(): React.ReactNode {
-        let styles={
-            icon: {
-                width:20,
-                height:20,
-            },
-        }
         return (
             <View style={{flex: 1, flexDirection: 'row',}}>
-                <Image source={{uri:''}} style={styles.icon}/>
+                <Image source={{uri:''}} style={Styles.icon}/>
                 <TextButton text={this.props.data.likes.toString()}/>
-                <Image source={{uri:''}} style={styles.icon}/>
+                <Image source={{uri:''}} style={Styles.icon}/>
                 <TextButton text={this.props.data.views.toString()}/>
-                <Image source={{uri:''}} style={styles.icon}/>
-                <Image source={{uri:''}} style={styles.icon}/>
+                <Image source={{uri:''}} style={Styles.icon}/>
+                <Image source={{uri:''}} style={Styles.icon}/>
             </View>
         );
     }
@@ -195,7 +188,7 @@ class ChannelDetail extends Component {
 }
 // let ChannelDetail = withNavigation(channelDetail)
 
-const styles = StyleSheet.create({
+const Styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 22,
@@ -213,6 +206,14 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 18,
         height: 44,
+    },
+    icon: {
+        width:20,
+        height:20,
+    },
+    img: {
+        width:50,
+        height:50,
     },
 })
 
@@ -232,4 +233,5 @@ export {
     ImgDetailScreen,
 
     SenseCate,
+    Styles,
 }
