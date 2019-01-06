@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, Stylesheet, Image, Text, View} from 'react-native';
+import {FlatList, TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, Stylesheet, Image, Text, View} from 'react-native';
 import SameApi from "./api";
 import {SenseCate, Styles} from "./common"
 
@@ -89,11 +89,12 @@ class ChannelList extends Component {
 
         return (
             <View style={Styles.container}>
-                <SectionList
-                    sections={[{data:this.state.channelList}]}
+                <FlatList
+                    data={this.state.channelList}
+                    // sections={[{data:this.state.channelList}]}
                     renderItem={({item}) => <ChannelListItem data={item}/>}
-                    renderSectionHeader={({section}) => <Text style={Styles.sectionHeader}></Text>}
-                    keyExtractor={(item, index) => index}
+                    // renderSectionHeader={({section}) => <Text style={Styles.sectionHeader}></Text>}
+                    // keyExtractor={(item, index) => index}
                 />
             </View>
         );

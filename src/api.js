@@ -40,10 +40,16 @@ class SameApi {
             headers: this.header,
         }).then((response) => response.json()).then((responseJson) => {
             console.log(responseJson)
-            this.userInfo = responseJson.data
+            this.userInfo = responseJson.data.user
         }).catch((error) =>{
             console.error(error);
         });
+    }
+    getUserInfo() {
+        if (this.userInfo === undefined) {
+            this.profile()
+        }
+        return this.userInfo
     }
     logout() {
         this.auth_token = ''
@@ -121,6 +127,7 @@ class SameApi {
             return true
         }
         this.auth_token = await AsyncStorage.getItem(AuthTokenKey)
+        this.auth_token = '1546710416-0p9KUVZ3c1kilmVZ-1344732'
         let isLogin = this.auth_token ? true : false
         if (isLogin) {
             this.uid = await AsyncStorage.getItem(UidKey)

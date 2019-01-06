@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, Stylesheet, Image, Text, View} from 'react-native';
+import {FlatList, TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, Stylesheet, Image, Text, View} from 'react-native';
 import SameApi from "./api";
 import {ImageButton, SenseCate, Styles} from "./common"
 import NavigationService from "./NavigationService";
@@ -127,6 +127,8 @@ class RecommendList extends Component {
     }
 
     componentDidMount(){
+        SameApi.profile()
+
         return SameApi.recommends((responseJson) => {
             this.setState({
                 isLoading: false,
@@ -145,11 +147,12 @@ class RecommendList extends Component {
 
         return (
             <View style={Styles.container}>
-                <SectionList
-                    sections={[{data:this.state.recommendList}]}
+                <FlatList
+                    data={this.state.recommendList}
+                    // sections={[{data:this.state.recommendList}]}
                     renderItem={({item}) => <RecommendListItem data={item}/>}
-                    renderSectionHeader={({section}) => <Text style={Styles.sectionHeader}></Text>}
-                    keyExtractor={(item, index) => index}
+                    // renderSectionHeader={({section}) => <Text style={Styles.sectionHeader}></Text>}
+                    // keyExtractor={(item, index) => index}
                 />
             </View>
         );

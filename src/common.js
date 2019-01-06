@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {withNavigation} from "react-navigation";
 import ImageViewer from "react-native-image-zoom-viewer";
 import NavigationService from "./NavigationService";
-import {Alert, ActivityIndicator, Image, SectionList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {FlatList, Alert, ActivityIndicator, Image, SectionList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 let SenseCate = {
     Text: 1,
@@ -175,12 +175,13 @@ class ChannelListItem extends Component {
 class ChannelDetail extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <SectionList
-                    sections={[{data:this.props.data}]}
+            <View style={Styles.container}>
+                <FlatList
+                    data={this.props.data}
+                    // sections={[{data:this.props.data}]}
                     renderItem={({item}) => <ChannelListItem data={item}/>}
-                    renderSectionHeader={({section}) => <Text style={styles.sectionHeader}></Text>}
-                    keyExtractor={(item, index) => index}
+                    // renderSectionHeader={({section}) => <Text style={styles.sectionHeader}></Text>}
+                    // keyExtractor={(item, index) => index}
                 />
             </View>
         );
