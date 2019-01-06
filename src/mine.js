@@ -27,7 +27,7 @@ import {
     ImageButton,
     SenseCate,
     TextButton,
-    Styles,
+    Styles, DeviceWidth, DeviceHeight,
 } from "./common";
 import NavigationService from "./NavigationService";
 
@@ -94,7 +94,7 @@ class SameListItem extends Component {
 class SameProfile extends Component {
     constructor(props) {
         super(props);
-        this.Styles = {
+        this.styles = {
             container: {
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -102,8 +102,12 @@ class SameProfile extends Component {
                 height: 50,
             },
             img:{
-                width: 50,
-                height: 50,
+                width: DeviceWidth*0.95,
+                height: DeviceHeight*0.8*2/3,
+            },
+            avatar:{
+                width: DeviceWidth*0.95/3,
+                height: DeviceHeight*0.2,
             }
         }
         this.profile = SameApi.getUserInfo()
@@ -112,7 +116,7 @@ class SameProfile extends Component {
         return (
             <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
                 <View style={{flex:1, flexDirection:'row', justifyContent:'space-between'}}>
-                    <ImageButton imgUrl={this.profile.avatar} jumpUrl='UserChannelSenses'/>
+                    <ImageButton imgUrl={this.profile.avatar} jumpUrl='UserChannelSenses' style={this.styles.avatar}/>
                     <View style={{flex:1, flexDirection:'column', justifyContent:'space-between'}}>
                         <View style={{flex:1, flexDirection:'row', justifyContent:'space-between'}}>
                             <Text>已发布{this.profile.senses}</Text>
@@ -134,26 +138,22 @@ class SameProfile extends Component {
 class SameListItemHeader extends Component {
     constructor(props) {
         super(props);
-        this.Styles = {
+        this.styles = {
             container: {
                 justifyContent: 'center',
                 alignItems: 'center',
-                width: 50,
-                height: 50,
             },
-            img:{
-                width: 50,
-                height: 50,
+            icon:{
+                width: DeviceWidth*1/8,
+                height: DeviceHeight*0.95 / 12,
             }
         }
     }
     render(): React.ReactNode {
         return (
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between',}}>
-                {/*<Image source={{uri:this.props.data.channel.icon}} style={{width:50, height:50,}}/>*/}
-                <ImageButton imgUrl={this.props.data.channel.icon} jumpUrl='UserChannelSenses'/>
+                <ImageButton imgUrl={this.props.data.channel.icon} jumpUrl='UserChannelSenses' style={this.styles.icon}/>
                 <View style={{flex:1, flexDirection:'column', justifyContent:'space-between'}}>
-                    {/*<TextButton text={this.props.data.channel.name} jumpUrl={'ChannelDetail'}></TextButton>*/}
                     <Text>{this.props.data.channel.name}</Text>
                     <Text>{this.props.data.channel.times}</Text>
                 </View>

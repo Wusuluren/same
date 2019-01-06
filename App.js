@@ -12,7 +12,7 @@ import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, 
 import MineScreen from "./src/mine"
 import RecommendScreen from "./src/recommend"
 import ChannelScreen from "./src/channel"
-import {ImageButton, ImgDetailScreen} from "./src/common";
+import {DeviceHeight, DeviceWidth, ImageButton, ImgDetailScreen} from "./src/common";
 import NavigationService from "./src/NavigationService";
 import {ChannelDetailScreen, UserChannelSensesScreen} from "./src/channelDetail";
 import LoginScreen from "./src/login";
@@ -50,34 +50,25 @@ class TestScreen extends Component {
             super(props)
             this.styles = {
                 container: {
-                    // justifyContent: 'center',
-                    // alignItems: 'center',
-                    width: 50,
-                    height: 50,
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
                 },
                 img:{
-                    width: 50,
-                    height: 50,
+                    width: DeviceWidth*0.95,
+                    height: DeviceHeight*0.8*2/3,
                 }
             }
         }
     render() {
-        const style = {
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-        }
         let photo = 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=609253297,1629028064&fm=58&bpow=1024&bpoh=768'
         return (
-            <View style={style}>
-                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail'/>
-                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail'/>
-                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail'/>
+            <View style={this.styles.container}>
+                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail' style={this.styles.img}/>
+                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail' style={this.styles.img}/>
+                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail' style={this.styles.img}/>
             </View>
         );
-        // return (
-        //     <ImageButton imgUrl='https://pic1.zhimg.com/16ff989bb_l.jpg' jumpUrl='ChannelDetail'/>
-        // );
     }
 }
 

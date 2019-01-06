@@ -38,14 +38,11 @@ class ImageButton extends Component{
 }
 // let ImageButton = withNavigation(imageButton)
 
-
 class TextButton extends Component{
     render(){
         return(
-            <TouchableOpacity onPress={()=>NavigationService.navigate(this.props.jumpUrl)} activeOpacity={0.2} focusedOpacity={0.5}>
-                {/*<View style= {{justifyContent:'center',alignItems:'center',width:20,height:20,backgroundColor:'white'}}>*/}
-                    <Text style={{color:'grey'}}>{this.props.text}</Text>
-                {/*</View>*/}
+            <TouchableOpacity onPress={()=>NavigationService.navigate(this.props.jumpUrl, {channel:this.props.channel})}>
+                <Text style={this.props.style}>{this.props.text}</Text>
             </TouchableOpacity>
         );
     }

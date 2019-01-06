@@ -65,9 +65,6 @@ class SameApi {
         });
     }
     login(mobile, password, resolve, reject) {
-        mobile = TestMobile
-        password = TestPassword
-
         let formData = new FormData();
         formData.append("mobile", `+86-${mobile}`);
         formData.append("password", password);
