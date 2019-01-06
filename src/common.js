@@ -54,7 +54,7 @@ class ChannelListItemTextImage extends Component {
         return (
             <View>
                 <TouchableOpacity onPress={()=>{NavigationService.navigate('ImgDetail', {urls:[{url:this.props.data.photo}]})}}>
-                    <Image source={{uri:this.props.data.photo}} style={{height:300,resizeMode:'cover'}}/>
+                    <Image source={{uri:this.props.data.photo}} style={Styles.img}/>
                 </TouchableOpacity>
                 <Text>{this.props.data.txt}</Text>
             </View>
@@ -176,6 +176,8 @@ class ChannelDetail extends Component {
 }
 // let ChannelDetail = withNavigation(channelDetail)
 
+const DeviceWidth = Dimensions.get('window').width;
+const DeviceHeight = Dimensions.get('window').height;
 const Styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -195,18 +197,19 @@ const Styles = StyleSheet.create({
         fontSize: 18,
         height: 44,
     },
-    icon: {
-        width:20,
-        height:20,
+    icon:{
+        width: DeviceWidth*1/8,
+        height: DeviceHeight*0.95 / 12,
     },
     img: {
-        width:50,
-        height:50,
+        width: DeviceWidth*0.95,
+        height: DeviceHeight*0.8*2/3,
     },
+    avatar:{
+        width: DeviceWidth*0.95/3,
+        height: DeviceHeight*0.2,
+    }
 })
-
-const DeviceWidth = Dimensions.get('window').width;
-const DeviceHeight = Dimensions.get('window').height;
 
 export {
     ChannelListItemTextImage,

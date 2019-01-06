@@ -12,7 +12,7 @@ import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, 
 import MineScreen from "./src/mine"
 import RecommendScreen from "./src/recommend"
 import ChannelScreen from "./src/channel"
-import {DeviceHeight, DeviceWidth, ImageButton, ImgDetailScreen} from "./src/common";
+import {DeviceHeight, DeviceWidth, ImageButton, ImgDetailScreen, Styles} from "./src/common";
 import NavigationService from "./src/NavigationService";
 import {ChannelDetailScreen, UserChannelSensesScreen} from "./src/channelDetail";
 import LoginScreen from "./src/login";
@@ -54,19 +54,15 @@ class TestScreen extends Component {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                 },
-                img:{
-                    width: DeviceWidth*0.95,
-                    height: DeviceHeight*0.8*2/3,
-                }
             }
         }
     render() {
         let photo = 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=609253297,1629028064&fm=58&bpow=1024&bpoh=768'
         return (
             <View style={this.styles.container}>
-                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail' style={this.styles.img}/>
-                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail' style={this.styles.img}/>
-                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail' style={this.styles.img}/>
+                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail' style={Styles.img}/>
+                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail' style={Styles.img}/>
+                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail' style={Styles.img}/>
             </View>
         );
     }

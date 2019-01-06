@@ -105,10 +105,6 @@ class SameProfile extends Component {
                 width: DeviceWidth*0.95,
                 height: DeviceHeight*0.8*2/3,
             },
-            avatar:{
-                width: DeviceWidth*0.95/3,
-                height: DeviceHeight*0.2,
-            }
         }
         this.profile = SameApi.getUserInfo()
     }
@@ -116,7 +112,7 @@ class SameProfile extends Component {
         return (
             <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',}}>
                 <View style={{flex:1, flexDirection:'row', justifyContent:'space-between'}}>
-                    <ImageButton imgUrl={this.profile.avatar} jumpUrl='UserChannelSenses' style={this.styles.avatar}/>
+                    <ImageButton imgUrl={this.profile.avatar} jumpUrl='UserChannelSenses' style={Styles.avatar}/>
                     <View style={{flex:1, flexDirection:'column', justifyContent:'space-between'}}>
                         <View style={{flex:1, flexDirection:'row', justifyContent:'space-between'}}>
                             <Text>已发布{this.profile.senses}</Text>
@@ -143,16 +139,12 @@ class SameListItemHeader extends Component {
                 justifyContent: 'center',
                 alignItems: 'center',
             },
-            icon:{
-                width: DeviceWidth*1/8,
-                height: DeviceHeight*0.95 / 12,
-            }
         }
     }
     render(): React.ReactNode {
         return (
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between',}}>
-                <ImageButton imgUrl={this.props.data.channel.icon} jumpUrl='UserChannelSenses' style={this.styles.icon}/>
+                <ImageButton imgUrl={this.props.data.channel.icon} jumpUrl='UserChannelSenses' style={Styles.icon}/>
                 <View style={{flex:1, flexDirection:'column', justifyContent:'space-between'}}>
                     <Text>{this.props.data.channel.name}</Text>
                     <Text>{this.props.data.channel.times}</Text>
