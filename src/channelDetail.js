@@ -4,15 +4,21 @@ import React, {Component} from "react";
 import {
     ChannelDetail, ChannelListItemBody, ChannelListItemFooter, Styles,
 } from "./common";
+import {withNavigation} from "react-navigation";
 
-export class ChannelDetailScreen extends Component {
+export class channelDetailScreen extends Component {
     constructor(props){
         super(props);
         this.state ={ isLoading: true}
     }
 
     componentDidMount(){
-        return SameApi.channelSenses('87757452,87765145,87746676', (responseJson) => {
+        // return SameApi.channelSensesWithIds('87757452,87765145,87746676', (responseJson) => {
+        //     this.setState({
+        //         isLoading: false,
+        //         data: responseJson.data,
+        //     }, function(){})}, function () {})
+        return SameApi.channelSenses(this.props.navigation.getParam('channel'), (responseJson) => {
             this.setState({
                 isLoading: false,
                 data: responseJson.data,
@@ -29,11 +35,14 @@ export class ChannelDetailScreen extends Component {
         }
 
         return (
-            <ChannelDetail data={this.state.data.senses}/>
+            <ChannelDetail data={this.state.data.results}/>
         );
     }
 }
-
+let ChannelDetailScreen = withNavigation(channelDetailScreen)
+export {
+            ChannelDetailScreen
+}
 
 export class UserChannelSensesScreen extends Component {
     constructor(props){

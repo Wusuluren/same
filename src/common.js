@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {withNavigation} from "react-navigation";
 import ImageViewer from "react-native-image-zoom-viewer";
 import NavigationService from "./NavigationService";
-import {FlatList, Alert, ActivityIndicator, Image, SectionList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Dimensions, FlatList, Alert, ActivityIndicator, Image, SectionList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
 let SenseCate = {
     Text: 1,
@@ -23,25 +23,15 @@ let ImgDetailScreen = withNavigation(imgDetailScreen)
 class ImageButton extends Component{
     constructor(props) {
         super(props);
-        this.styles = {
-            container: {
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: 50,
-                height: 50,
-            },
-            img:{
-                width: 50,
-                height: 50,
-            }
-        }
     }
     render(){
         return(
-            <TouchableOpacity onPress={()=>{NavigationService.navigate(this.props.jumpUrl)}}>
-                <View style={this.styles.container}>
-                    <Image source={{uri:this.props.imgUrl}} style={this.styles.img} />
-                </View>
+            <TouchableOpacity onPress={
+                () => {
+                    NavigationService.navigate(this.props.jumpUrl, {channel:this.props.channel})
+                }
+            }>
+                <Image source={{uri:this.props.imgUrl}} style={this.props.style} />
             </TouchableOpacity>
         );
     }
@@ -218,7 +208,8 @@ const Styles = StyleSheet.create({
     },
 })
 
-
+const DeviceWidth = Dimensions.get('window').width;
+const DeviceHeight = Dimensions.get('window').height;
 
 export {
     ChannelListItemTextImage,
@@ -235,4 +226,6 @@ export {
 
     SenseCate,
     Styles,
+    DeviceWidth,
+    DeviceHeight,
 }

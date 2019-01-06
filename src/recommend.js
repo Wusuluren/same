@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import {FlatList, TouchableOpacity, Button, ActivityIndicator, SectionList, Platform, Stylesheet, Image, Text, View} from 'react-native';
 import SameApi from "./api";
-import {ImageButton, SenseCate, Styles} from "./common"
+import {DeviceHeight, DeviceWidth, ImageButton, SenseCate, Styles} from "./common"
 import NavigationService from "./NavigationService";
 
 export default class RecommendScreen extends Component {
@@ -56,6 +56,21 @@ class RecommendListItem extends Component {
 class RecommendItemBodyImage extends Component {
     constructor(props) {
         super(props);
+        this.styles = {
+            container: {
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+            },
+            img: {
+                width: DeviceWidth*0.95 / 3,
+                height: DeviceHeight*0.8 / 5,
+            }
+        }
+        this.channel = ''
+        if (this.props.data.sense_data.length > 0) {
+            this.channel = this.props.data.sense_data[0].channel_id
+        }
     }
 
     getPhoto(idx) {
@@ -63,16 +78,12 @@ class RecommendItemBodyImage extends Component {
     }
 
     render(): React.ReactNode {
-        const style = {
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-        }
+        console.log(this.props.data.sense_data[0])
         return (
-            <View stype={style}>
-                <ImageButton imgUrl={this.getPhoto(0)} jumpUrl='ChannelDetail'/>
-                <ImageButton imgUrl={this.getPhoto(1)} jumpUrl='ChannelDetail'/>
-                <ImageButton imgUrl={this.getPhoto(2)} jumpUrl='ChannelDetail'/>
+            <View style={this.styles.container}>
+                <ImageButton imgUrl={this.getPhoto(0)} jumpUrl='ChannelDetail' channel={this.channel} style={this.styles.img}/>
+                <ImageButton imgUrl={this.getPhoto(1)} jumpUrl='ChannelDetail' channel={this.channel} style={this.styles.img}/>
+                <ImageButton imgUrl={this.getPhoto(2)} jumpUrl='ChannelDetail' channel={this.channel} style={this.styles.img}/>
             </View>
         );
     }

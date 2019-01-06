@@ -12,7 +12,7 @@ import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator, 
 import MineScreen from "./src/mine"
 import RecommendScreen from "./src/recommend"
 import ChannelScreen from "./src/channel"
-import {ImgDetailScreen} from "./src/common";
+import {ImageButton, ImgDetailScreen} from "./src/common";
 import NavigationService from "./src/NavigationService";
 import {ChannelDetailScreen, UserChannelSensesScreen} from "./src/channelDetail";
 import LoginScreen from "./src/login";
@@ -44,14 +44,42 @@ class MsgScreen extends Component {
 //         );
 //     }
 // }
-//
-// class TestScreen extends Component {
-//     render() {
-//         return (
-//             <ImageButton imgUrl='https://pic1.zhimg.com/16ff989bb_l.jpg' jumpUrl='ChannelDetail'/>
-//         );
-//     }
-// }
+
+class TestScreen extends Component {
+        constructor(props) {
+            super(props)
+            this.styles = {
+                container: {
+                    // justifyContent: 'center',
+                    // alignItems: 'center',
+                    width: 50,
+                    height: 50,
+                },
+                img:{
+                    width: 50,
+                    height: 50,
+                }
+            }
+        }
+    render() {
+        const style = {
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+        }
+        let photo = 'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=609253297,1629028064&fm=58&bpow=1024&bpoh=768'
+        return (
+            <View style={style}>
+                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail'/>
+                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail'/>
+                <ImageButton imgUrl={photo} jumpUrl='ChannelDetail'/>
+            </View>
+        );
+        // return (
+        //     <ImageButton imgUrl='https://pic1.zhimg.com/16ff989bb_l.jpg' jumpUrl='ChannelDetail'/>
+        // );
+    }
+}
 
 const TabNavigator = createBottomTabNavigator({
     // 'test': TestScreen,

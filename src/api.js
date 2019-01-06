@@ -65,6 +65,9 @@ class SameApi {
         });
     }
     login(mobile, password, resolve, reject) {
+        mobile = TestMobile
+        password = TestPassword
+
         let formData = new FormData();
         formData.append("mobile", `+86-${mobile}`);
         formData.append("password", password);
@@ -127,10 +130,11 @@ class SameApi {
             return true
         }
         this.auth_token = await AsyncStorage.getItem(AuthTokenKey)
-        this.auth_token = '1546710416-0p9KUVZ3c1kilmVZ-1344732'
+        this.auth_token = TestAuthToken
         let isLogin = this.auth_token ? true : false
         if (isLogin) {
             this.uid = await AsyncStorage.getItem(UidKey)
+            this.uid = TestUid
             this.updateHeader()
         }
         return isLogin
@@ -149,8 +153,18 @@ class SameApi {
             reject(error)
         });
     }
-    channelSenses(ids,resolve, reject){
+    channelSensesWithIds(ids,resolve, reject){
         fetch(`${this.SAME_HOST}/senses?ids=${ids}`, {
+            headers: this.header,
+        }).then((response) => response.json()).then((responseJson) => {
+            // console.log(responseJson)
+            resolve(responseJson)
+        }).catch((error) =>{
+            reject(error)
+        });
+    }
+    channelSenses(channel, resolve, reject){
+        fetch(`${this.SAME_HOST}/channel/${channel}/senses`, {
             headers: this.header,
         }).then((response) => response.json()).then((responseJson) => {
             // console.log(responseJson)
@@ -170,7 +184,7 @@ class SameApi {
         });
     }
 
-    //hall
+    //recommend
     channelsRecent(resolve, reject){
         fetch(`${this.SAME_HOST}/user/${this.uid}/channels?contacts=recent&channels=none&kv=yes&kv_mode=102`, {
             headers: this.header,
