@@ -78,7 +78,6 @@ class RecommendItemBodyImage extends Component {
     }
 
     render(): React.ReactNode {
-        console.log(this.props.data.sense_data[0])
         return (
             <View style={this.styles.container}>
                 <ImageButton imgUrl={this.getPhoto(0)} jumpUrl='ChannelDetail' channel={this.channel} style={this.styles.img}/>

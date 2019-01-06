@@ -17,6 +17,7 @@ const UidKey = 'uid'
 class SameApi {
     constructor() {
         this.SAME_HOST = 'https://v2.same.com'
+        this.SAME_CHAT_HOST = 'https://im-xs.same.com'
         this.configData = {}
         this.uid = ''
         this.auth_token = ''
@@ -28,7 +29,7 @@ class SameApi {
         fetch(this.SAME_HOST + "/config", {
             headers: this.header,
         }).then((response) => response.json()).then((responseJson) => {
-            console.log(responseJson)
+            // console.log(responseJson)
             this.SAME_HOST = responseJson.data.base_api_url
             this.configData = responseJson.data
         }).catch((error) =>{
@@ -39,7 +40,7 @@ class SameApi {
         fetch(`${this.SAME_HOST}/user/${this.uid}/profile`, {
             headers: this.header,
         }).then((response) => response.json()).then((responseJson) => {
-            console.log(responseJson)
+            // console.log(responseJson)
             this.userInfo = responseJson.data.user
         }).catch((error) =>{
             console.error(error);
@@ -57,9 +58,9 @@ class SameApi {
         AsyncStorage.removeItem(AuthTokenKey)
         AsyncStorage.removeItem(UidKey)
         fetch(`${this.SAME_HOST}/user/logout`, {
-            // headers: this.header,
+            headers: this.header,
         }).then((response) => response.json()).then((responseJson) => {
-            console.log(responseJson)
+            // console.log(responseJson)
         }).catch((error) =>{
             console.error(error);
         });
@@ -76,7 +77,7 @@ class SameApi {
                 "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8',
             },
         }).then((response) => response.json()).then((responseJson) => {
-            console.log(responseJson)
+            // console.log(responseJson)
             if (responseJson.code !== 0) {
                 reject(responseJson.detail)
                 return
@@ -117,7 +118,7 @@ class SameApi {
                 "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8',
             },
         }).then((response) => response.json()).then((responseJson) => {
-            console.log(responseJson)
+            // console.log(responseJson)
         }).catch((error) =>{
             console.error(error);
         });
@@ -127,11 +128,9 @@ class SameApi {
             return true
         }
         this.auth_token = await AsyncStorage.getItem(AuthTokenKey)
-        this.auth_token = TestAuthToken
         let isLogin = this.auth_token ? true : false
         if (isLogin) {
             this.uid = await AsyncStorage.getItem(UidKey)
-            this.uid = TestUid
             this.updateHeader()
         }
         return isLogin
@@ -139,7 +138,6 @@ class SameApi {
 
     //channel
     channelsAll(resolve, reject){
-        console.log(this.uid, this.auth_token, this.header)
         fetch(`${this.SAME_HOST}/user/${this.uid}/channels?channels=all`, {
             headers: this.header,
         }).then((response) => response.json()).then((responseJson) => {
@@ -218,7 +216,6 @@ class SameApi {
 
     //mine
     sensesMine(resolve, reject){
-        console.log(this.uid, this.auth_token)
         fetch(`${this.SAME_HOST}/user/${this.uid}/senses`, {
             headers: this.header,
         }).then((response) => response.json()).then((responseJson) => {
@@ -229,6 +226,30 @@ class SameApi {
             reject(error)
         });
     }
+
+    //chat
+    imcontactList(resolve, reject){
+        fetch(`${this.SAME_CHAT_HOST}/imcontact/list`, {
+            headers: this.header,
+        }).then((response) => response.json()).then((responseJson) => {
+            resolve(responseJson)
+        }).catch((error) =>{
+            console.error(error);
+            reject(error)
+        });
+    }
+    imcatalogList(resolve, reject){
+        fetch(`${this.SAME_CHAT_HOST}/imcatalog/list?uid=${this.uid}&limit=40`, {
+            headers: this.header,
+        }).then((response) => response.json()).then((responseJson) => {
+            // console.log(responseJson)
+            resolve(responseJson)
+        }).catch((error) =>{
+            console.error(error);
+            reject(error)
+        });
+    }
+
 };
 
 export default SameApi = new SameApi()

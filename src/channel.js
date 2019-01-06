@@ -59,7 +59,6 @@ class ChannelListItem extends Component {
     }
 
     render(): React.ReactNode {
-        console.log(this.props.data.channel.id, this.props.data.channel.name)
         if (this.props.data.badge > 0) {
             return (
                 <View style={this.styles.container}>

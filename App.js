@@ -17,20 +17,7 @@ import NavigationService from "./src/NavigationService";
 import {ChannelDetailScreen, UserChannelSensesScreen} from "./src/channelDetail";
 import LoginScreen from "./src/login";
 import AuthScreen from "./src/auth";
-
-class MsgScreen extends Component {
-    render() {
-        return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Home Screen</Text>
-                <Button
-                    title="Go to Details"
-                    onPress={() => this.props.navigation.navigate('Mine')}
-                />
-            </View>
-        );
-    }
-}
+import MsgScreen from "./src/msg";
 
 // class TestSubScreen extends Component {
 //     render() {
